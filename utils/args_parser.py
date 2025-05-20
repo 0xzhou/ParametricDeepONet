@@ -1,0 +1,23 @@
+import argparse
+
+def parse_arguments(args):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--config_file', type=str, default='', help="Path of the config file")
+    parser.add_argument('--dataset', type=str, default='', help='Path to the train/test data directory.')
+    parser.add_argument('--train_dataset', type=str, default='', help='Directory of the training dataset.')
+    parser.add_argument('--test_dataset', type=str, default='', help='Directory of the test dataset.')
+    parser.add_argument('--id_test_dataset', type=str, default='', help='Directory of the in-distribution test dataset.')
+    parser.add_argument('--ood_test_dataset', type=str, default='', help='Directory of the out-of-distribution test dataset.')
+    parser.add_argument('--input_dim', type=int, default=0, help='Length of the input.')
+    parser.add_argument('--params_dim', type=int, default=0, help='Length of the latent variables.')
+    parser.add_argument('--save_in', type=str, default='', help='Path to the save directory.')
+    parser.add_argument('--run', type=int, default=1, help='The number of running experiments.')
+    parser.add_argument('--epoch', type=int, default = 1000, help='Number of epochs to train.')
+    parser.add_argument('--lr', type=float, default=0.001, help='Learning rate')
+    parser.add_argument('--optimizer', type=str, default='SGD', help='Optimizer to use')
+    parser.add_argument('--batch_size', type=int, default=32, help='Batch size')
+    parser.add_argument('--loss', type=str, default='', help='Loss function to use')
+    parser.add_argument('--depth', type=int, default=2, help='Depth of the network')
+    parser.add_argument('--width', type=int, default=10, help='Width of the network')
+    parser.add_argument('--pebasis', type=int, default=0, help='Number of basis functions for positional encoding')
+    return parser.parse_args(args)
