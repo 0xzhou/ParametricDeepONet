@@ -95,7 +95,6 @@ class ParamsCNN(nn.Module):
         self.model_name = 'ParamsCNN'
     
         if case == 'blade':
-            #self.encoder = cnn_encoder(config=cnn_config.cnn_encoder_config['branch_cnn_7'])
             self.encoder = cnn_encoder(config=cnn_config.cnn_encoder_config['branch_cnn_8'])
             self.decoder = cnn_decoder(config=cnn_config.cnn_decoder_config['trunk_decnn_7'])
         elif case == 'duffing':
@@ -104,17 +103,15 @@ class ParamsCNN(nn.Module):
         
     def forward(self, x_t, mu, y_loc):
         if self.case == 'blade': 
-            mu = mu.unsqueeze(1) # output: [batch_size, 1, params_dim]
+            mu = mu.unsqueeze(1) 
             inputs = torch.cat((x_t, mu), dim = 2) # output: [batch_size, time_step, input_shape + params_dim]
-            latent = self.encoder(inputs) # output: [batch_size, channels, features_size]
-            output = self.decoder(latent) # output: [batch_size, channels, output_shape]    
+            latent = self.encoder(inputs) 
+            output = self.decoder(latent) 
             return output
         
         elif self.case == 'duffing':
             mu = mu.unsqueeze(1)
             x_t = x_t.unsqueeze(1)
-            #print("x_t.shape: ", x_t.shape)
-            #print("mu.shape: ", mu.shape)
             inputs = torch.cat((x_t, mu), dim = 2)
             latent = self.encoder(inputs) 
             output = self.decoder(latent)

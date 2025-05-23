@@ -20,11 +20,11 @@ class GradientInitialNet(nn.Module):
             c = torch.FloatTensor(batch_size, 1).uniform_(1, 10)
             params = torch.cat((k, c), 1)
             
-        # elif case == 'case2': # wind turbine blade / parameterization (a)            
-        #     self.mu_1 = torch.FloatTensor(batch_size, 1).uniform_(0, 1)
-        #     self.mu_2 = torch.FloatTensor(batch_size, 1).uniform_(0, 1)
-        #     self.mu_3 = torch.FloatTensor(batch_size, 1).uniform_(0, 1)
-        #     params = torch.cat([self.mu_1, self.mu_2, self.mu_3], dim = 1)
+        #elif case == 'case2': # wind turbine blade / parameterization (a)            
+            # self.mu_1 = torch.FloatTensor(batch_size, 1).uniform_(0, 1)
+            # self.mu_2 = torch.FloatTensor(batch_size, 1).uniform_(0, 1)
+            # self.mu_3 = torch.FloatTensor(batch_size, 1).uniform_(0, 1)
+            # params = torch.cat([self.mu_1, self.mu_2, self.mu_3], dim = 1)
             
         elif case == 'case2': # wind turbine blade / parameterization (b)            
             params = torch.FloatTensor(batch_size, 200).uniform_(0, 1)

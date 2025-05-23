@@ -1,7 +1,7 @@
 data_case: duffing
-train_dataset: /home/zmy2022/ShareFolder/Github/InFoNet/data/case1b_train.npy
-test_dataset: /home/zmy2022/ShareFolder/Github/InFoNet/data/case1_test.npy
-save_in: /home/zmy2022/disk_3/mssp_peno_data/revise/GS_case1b_ep10000/ParametricDeepONet_LD_D5W500
+train_dataset: ../data/case1b_train.npy
+test_dataset: ../data/case1_test.npy
+save_in: ../weights/case1b/
 model_type: ParametricDeepONet
 input_dim: 200
 params_dim: 2
@@ -9,30 +9,13 @@ loss_mode: NRMSE
 optimizer: Adam
 params_normalize: False 
 params_label: ['k', 'c']
-run: 3 
+run: 1 
 epoch: 10000 
 seed: None
 print_every: 1000
 batch_size: 64 
 lr: 0.001
-# decode_mode: nonlinear
-# depth: 3
-# width: 200
-# pebasis: 10
-decode_mode: linear
-depth: 5
-width: 200
+decode_mode: nonlinear
+depth: 3
+width: 300
 pebasis: 10
-# decode_mode: nonlinear
-# depth: 3
-# width: 200
-# pebasis: 10
-# case 2
-# decode_mode: linear
-# depth: 4
-# width: 500
-# pebasis: 10
-# decode_mode: nonlinear
-# depth: 3
-# width: 200
-# pebasis: 10

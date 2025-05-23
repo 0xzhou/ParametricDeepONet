@@ -372,21 +372,7 @@ class Surrogate(object):
         params_num = params.shape[0]
 
         with torch.no_grad():
-            if model_type == 'ParamsCNN':
-                one_x_t = self.train_data[0][0].unsqueeze(0)
-                mesh_params_latent = latent_net(one_x_t, params, 0)
-                train_params_latent = latent_net(one_x_t, self.train_data[1], 0)
-                test_params_latent = latent_net(one_x_t, self.test_data[1], 0)
-            elif model_type == 'Case1_ParamsAE' or model_type == 'Trunk2_DeepONet':
-                
-                one_x_t = self.train_data[0][0].unsqueeze(0) # take f(t)
-                one_y_coord = self.train_data[3][0].unsqueeze(0) # take y_coord
-                #print("The shape of one_x_t in evaluator is: ", one_x_t.shape)
-                
-                mesh_params_latent = latent_net(one_x_t, params, one_y_coord)
-                train_params_latent = latent_net(one_x_t, self.train_data[1], one_y_coord)
-                test_params_latent = latent_net(one_x_t, self.test_data[1], one_y_coord)
-            elif model_type == 'ParametricDeepONet':
+            if model_type == 'ParametricDeepONet':
                 one_x_t = self.train_data[0][0].unsqueeze(0)
                 one_y_coord = self.train_data[3][0].unsqueeze(1)
                 
@@ -394,10 +380,6 @@ class Surrogate(object):
                 train_params_latent = latent_net(one_x_t, self.train_data[1], one_y_coord)
                 test_params_latent = latent_net(one_x_t, self.test_data[1], one_y_coord)
                 print("The shape of mesh_params_latent is: ", mesh_params_latent.shape)
-            else:
-                mesh_params_latent = latent_net(0, params, 0)
-                train_params_latent = latent_net(0, self.train_data[1], 0)
-                test_params_latent = latent_net(0, self.test_data[1], 0)
                  
         latent = torch.cat([mesh_params_latent, train_params_latent], dim = 0)
         print("The shape of latent is: ", latent.shape)

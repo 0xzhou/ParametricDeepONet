@@ -2,8 +2,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import os, sys, math, yaml, random
-sys.path.append('./utils')
+import os, math
 from forward_model import Surrogate
 import models.inverse_net as inverse_net
 from forward_model import Surrogate
@@ -65,10 +64,10 @@ class InverseModel(Surrogate):
                     best_test_loss_epoch = i
                     torch.save(gi_net.state_dict(), './best_model.pth')
 
-                if i % check_int == 0:
-                    print(f'Epoch: %d, Loss: %.3f ' % (i, loss.item()))
+                # if i % check_int == 0:
+                #     print(f'Epoch: %d, Loss: %.3f ' % (i, loss.item()))
             
-            print(f'Best test loss: %.3f at epoch %d' % (best_test_loss, best_test_loss_epoch)) 
+            #print(f'Best test loss: %.3f at epoch %d' % (best_test_loss, best_test_loss_epoch)) 
             gi_net.load_state_dict(torch.load('best_model.pth', weights_only=True))
             self.evaluate_record['gi_process_params'].append(epoch_params_init)
             pred_params.append(gi_net.params)
@@ -98,8 +97,8 @@ class InverseModel(Surrogate):
                                                             regl_case=regl_case)
 
                 inverse_loss = self.calculate_metrics(mu_hat, mu, mode = 'RMSE')
-                loss = forward_loss + inverse_loss
-                #loss = inverse_loss
+                forward_regel_weight = 0.0 # Set based on the problems, 0-1
+                loss = forward_regel_weight * forward_loss + inverse_loss
 
                 epoch_loss.append(loss.item())
                 epoch_forward_loss.append(forward_loss.item())
@@ -116,8 +115,8 @@ class InverseModel(Surrogate):
                 best_loss_epoch = i
                 torch.save(ir_net.state_dict(), os.path.join(self.save_dir,'best_inverse_model.pt'))
 
-            if i % check_int == 0:
-                print("Epoch:{}, Loss:{:.5f}, Forward Loss:{:.5f}, Inverse Loss:{:.5f}".format(i, np.mean(epoch_loss), np.mean(epoch_forward_loss), np.mean(epoch_inverse_loss)))
+            # if i % check_int == 0:
+            #     print("Epoch:{}, Loss:{:.5f}, Forward Loss:{:.5f}, Inverse Loss:{:.5f}".format(i, np.mean(epoch_loss), np.mean(epoch_forward_loss), np.mean(epoch_inverse_loss)))
                 
             if data_case == 'case2' and data_source == 'train':
                         _mu_0, _x_t, _mu, _y_t, _ts = self.post_pi_train_data[0], self.post_pi_train_data[1], self.post_pi_train_data[2], self.post_pi_train_data[3], self.post_pi_train_data[4]
@@ -135,7 +134,7 @@ class InverseModel(Surrogate):
                 test_loss = test_forward_loss + test_inverse_loss
                 self.evaluate_record['test_refine_loss'].append(test_inverse_loss.item())
 
-        print("Best loss: {:.5f} at epoch {}".format(best_loss, best_loss_epoch))
+        #print("Best loss: {:.5f} at epoch {}".format(best_loss, best_loss_epoch))
 
         ir_net.load_state_dict(torch.load(os.path.join(self.save_dir,'best_inverse_model.pt'), weights_only=True))
         self.generate_post_ir_data(ir_net, iter_steps, memory_iter, regl_case)
@@ -233,7 +232,7 @@ class InverseModel(Surrogate):
         elif case == 'blade':
             if mode == 'GI':
                 mu_nrmse = self.calculate_metrics(post_GI_data[0][:,:], original_data[1][:,:], mode = self.args.loss_mode)
-            
+                
             elif mode == 'NR':
                 mu_nrmse = self.calculate_metrics(post_IR_data[:,:], original_data[1][:,:], mode = self.args.loss_mode)
                 

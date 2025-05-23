@@ -34,10 +34,10 @@ def get_params(sample_list):
         params.append(damage_label_dic[sample['w_label']])
     params = np.array(params)
     
-    ### damage length parameterization
+    ### damage length parameterization (a)
     #params = params[:, 3:] 
     
-    ### damage shape parameterization
+    ### damage shape parameterization (b)
     params = vectorize_params(params)
     
     return params

@@ -1,8 +1,8 @@
 *.pyc
 __pycache__/
-test/
-duffing_data/
+#test/
+#duffing_data/
 visualizations/
 temp_visual/
-weights/
-experiment/
+#weights/
+#experiments/

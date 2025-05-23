@@ -30,7 +30,6 @@ def generate_sample_data(lvm, start_index=int, sample_length=int, sensor_idx=int
         for i in range(9):
             data[:, i] *= 1000.0 / SENSITIVITY_LIST[i]  # sensor reading to acceleration (volt -> m/s^2)
 
-    
     # Bandpass filter
     if filter:
         order = 6
@@ -50,8 +49,6 @@ def generate_sample_data(lvm, start_index=int, sample_length=int, sensor_idx=int
     sample_start = 0
     #max_start_idx = 70000 - start_index - sample_length + 1
     for _ in range(num_sample):
-        #sample_start = random.randint(0, max_start_idx)
-        
         if sensor_idx:
             samples.append(data[sample_start: sample_start + sample_length])
         else:

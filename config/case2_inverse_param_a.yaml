@@ -1,0 +1,23 @@
+data_case: blade
+noised_data: False
+train_dataset: ../data/case2_train.pkl
+test_dataset: 
+id_test_dataset: ../data/case2_iid_test.pkl
+ood_test_dataset: ../data/case2_ood_test.pkl
+model_type: ParametricDeepONet
+decode_mode: linear
+input_dim: 200
+params_dim: 3
+loss_mode: NRMSE
+optimizer: Adam
+run: 1
+save_in: ../weights/case2_params_a
+epoch: 10000 
+seed: None
+print_every: 100
+iterative_epoch_list:  
+batch_size: 64 
+lr: 0.001
+pebasis: 50
+depth: 4
+width: 400
