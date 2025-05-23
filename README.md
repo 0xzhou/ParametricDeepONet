@@ -25,7 +25,6 @@ sh run.sh
 ## Evaluate
 Experiments of Case1 and Case2 are in the `./experiments/` folder. 
 
-For instance, the Case 1b in `case1b_forward.ipynb`.
 
 ### Case 1
 SDOF Response prediction, see example in `case1b_forward.ipynb`.
@@ -40,10 +39,10 @@ Damage length estimation, see example in `case2_inverse_params_a.ipynb`.
 
 Damage shape estimation, see example in `case2_inverse_params_b.ipynb`.
 
-(Set the suitable parameterization code in `inverse_net.py` and `script.py`.)
+(Set the suitable parameterization code in `inverse_net.py` and `script.py`)
 
 ## Acknowledgement
-Our code is parially based on:
+Our code is partially based on:
 \
 https://github.com/lululxvi/deepxde 
 \
